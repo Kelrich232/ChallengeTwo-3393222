@@ -1,0 +1,51 @@
+
+class SearchSuggestionSystem {
+  
+  constructor(products) {
+    
+    this.products = products.sort();
+  }
+
+  getSuggestions(searchWord) {
+    const allSuggestions = [];
+    let currentPrefix = ""; 
+
+    
+    for (let i = 0; i < searchWord.length; i++) {
+      currentPrefix += searchWord[i]; 
+      const suggestionsForThisPrefix = []; 
+
+      
+      for (const product of this.products) {
+        
+        if (product.startsWith(currentPrefix)) {
+          suggestionsForThisPrefix.push(product); 
+         
+          if (suggestionsForThisPrefix.length === 3) {
+            break;
+          }
+        }
+      }
+      allSuggestions.push(suggestionsForThisPrefix);
+    }
+
+    return allSuggestions;
+  }
+}
+
+
+const products = ["mobile", "mouse", "moneypot", "monitor", "mousepad"]; [span_0](start_span)
+const searchWord = "mouse"; [span_1](start_span)
+
+const system = new SearchSuggestionSystem(products);
+const suggestionsOutput = system.getSuggestions(searchWord);
+
+console.log(suggestionsOutput);
+[span_2](start_span)
+// [
+//   ["mobile","moneypot","monitor"],
+//   ["mobile","moneypot","monitor"],
+//   ["mouse","mousepad"],
+//   ["mouse","mousepad"],
+//   ["mouse","mousepad"]
+// ]
